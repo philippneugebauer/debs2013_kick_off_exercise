@@ -1,0 +1,46 @@
+#PARSER PQL
+#DEFINE DATAFILENAME C:\Users\ba027597\odysseusworkspace\tilp_first_project\data\sample_game_dataset.csv
+#DEFINE METAFILENAME C:\Users\ba027597\odysseusworkspace\tilp_first_project\data\EntitySensorMapping.csv
+
+#RUNQUERY
+soccergame := ACCESS({
+	source='soccergame',
+	wrapper='GenericPull',
+	transport='file',
+	protocol='simplecsv',
+	dataHandler='tuple',
+	schema=[
+		['sid', 'integer'],
+		['ts', 'starttimestamp'],
+		['x', 'integer'],
+		['y', 'integer'],
+		['z', 'integer'],
+		['v', 'integer'],
+		['a', 'integer'],
+		['vx', 'integer'],
+		['vy', 'integer'],
+		['vz', 'integer'],
+		['ax', 'integer'],
+		['ay', 'integer'],
+		['az', 'integer']
+	],
+	options=[['filename','${DATAFILENAME}'],['Delimiter',',']]
+})
+
+metadata := ACCESS({
+	source='metadata',
+	wrapper='GenericPull',
+	transport='file',
+	protocol='simplecsv',
+	dataHandler='tuple',
+	schema=[			
+		['entity_id', 'integer'],
+		['entity', 'string'],
+		['sensorid', 'integer'],
+		['remark', 'string'],
+		['team_id', 'integer']
+	],
+	options=[
+		['filename','${METAFILENAME}'],['Delimiter',';']
+	]
+})
