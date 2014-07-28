@@ -1,0 +1,14 @@
+#PARSER PQL
+#DEFINE STARTTS 10748401988186756
+#DEFINE OUTPUT C:\Users\Administrator\Documents\debs_challenge_data\
+#DROPALLQUERIES
+#QUERY
+
+
+joinout = ENRICH({minimumSize = 42, PREDICATE = RelationalPredicate('sensorid = sid')}, System.metadata, soccergame)
+
+filterEvents = SELECT({predicate = 'sensorid = 4 || sensorid = 8 || sensorid = 10 || sensorid = 12'}, joinout)
+
+oneminute = TIMEWINDOW({size = 600000000000000, advance = 10000000000000}, filterEvents)
+
+out = AGGREGATE({group_by = ['sensorid'], aggregations = [['COUNT', 'entity_id', 'COUNT_sensorid', 'integer']]}, oneminute)
