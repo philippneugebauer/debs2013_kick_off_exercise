@@ -1,6 +1,6 @@
 #PARSER PQL
-#DEFINE DATAFILENAME C:\Users\ba027597\odysseusworkspace\tilp_first_project\data\sample_game_dataset.csv
-#DEFINE METAFILENAME C:\Users\ba027597\odysseusworkspace\tilp_first_project\data\EntitySensorMapping.csv
+#DEFINE DATAFILENAME \data\sample_game_dataset.csv
+#DEFINE METAFILENAME \data\EntitySensorMapping.csv
 
 #RUNQUERY
 soccergame := ACCESS({
@@ -24,7 +24,7 @@ soccergame := ACCESS({
 		['ay', 'integer'],
 		['az', 'integer']
 	],
-	options=[['filename','${DATAFILENAME}'],['Delimiter',',']]
+	options=[['filename','${PROJECTPATH}${DATAFILENAME}'],['Delimiter',',']]
 })
 
 metadata := ACCESS({
@@ -41,6 +41,6 @@ metadata := ACCESS({
 		['team_id', 'integer']
 	],
 	options=[
-		['filename','${METAFILENAME}'],['Delimiter',';']
+		['filename','${PROJECTPATH}${METAFILENAME}'],['Delimiter',';']
 	]
 })
