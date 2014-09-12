@@ -1,15 +1,9 @@
 #PARSER PQL
-#DEFINE STARTTS 10748401988186756
-#DEFINE OUTPUT C:\Users\Administrator\Documents\debs_challenge_data\
 #DROPALLQUERIES
 #QUERY
 
-
 joinout = ENRICH({minimumSize = 42, PREDICATE = RelationalPredicate('sensorid = sid')},System.metadata, soccergame)
-
 
 filterEvents = SELECT({predicate = 'entity = "Nick Gertje"'},joinout)
 projection = PROJECT({attributes = ['sid','entity','ts','x','y','z']},filterEvents)
 map_results = MAP({expressions = ['sid','ts',['entity','player']]},projection)
-
-
